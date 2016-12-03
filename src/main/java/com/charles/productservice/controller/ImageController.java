@@ -14,12 +14,11 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
-import com.charles.productservice.model.Image;
-import com.charles.productservice.model.Product;
+import com.charles.productservice.dto.ImageDTO;
+import com.charles.productservice.dto.ProductDTO;
 import com.charles.productservice.service.ImageService;
  
 public class ImageController {
@@ -30,9 +29,9 @@ public class ImageController {
 	@Autowired
 	private ImageService imageService;
 	
-	private Product product;
+	private ProductDTO product;
 	
-	public ImageController(Product p){
+	public ImageController(ProductDTO p){
 		product = p;
 	}
 	
@@ -42,7 +41,7 @@ public class ImageController {
 	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Image> findAll() {
+	public List<ImageDTO> findAll() {
 		if (product != null){
 			return imageService.findByProduct(product.getId());
 		}
@@ -56,8 +55,8 @@ public class ImageController {
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findById(@PathParam("id") Long id) {
-		Image p = imageService.findById(id);
-        if(p == null || (product != null && !product.equals(p.getProduct()))) {
+		ImageDTO p = imageService.findById(id);
+        if(p == null || (product != null && !product.equals(p.getProductFrom()))) {
 			return Response.status(HttpStatus.NOT_FOUND.value()).entity(p).build(); 
 		} else {
 			return Response.status(HttpStatus.OK.value()).build();
@@ -70,11 +69,11 @@ public class ImageController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response save(Image image) {
+	public Response save(ImageDTO image) {
 		if (product != null){
-			image.setProduct(product);
+			image.setProductFrom(product);
 		}
-		Image i = imageService.save(image);
+		ImageDTO i = imageService.save(image);
 		if (i == null){
 			return Response.status(HttpStatus.NOT_FOUND.value()).build();
 		}
@@ -88,9 +87,9 @@ public class ImageController {
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response update(@PathParam("id") Long id, Image image) {
+	public Response update(@PathParam("id") Long id, ImageDTO image) {
 		if (product != null){
-			image.setProduct(product);
+			image.setProductFrom(product);
 		}
 		image.setId(id);
 		if (imageService.findById(image.getId()) != null) {
@@ -109,8 +108,8 @@ public class ImageController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response delete(@PathParam("id") Long id) {
-		Image i = imageService.findById(id);
-		if (i == null || (product != null && !product.equals(i.getProduct()))) {
+		ImageDTO i = imageService.findById(id);
+		if (i == null || (product != null && !product.equals(i.getProductFrom()))) {
 			return Response.status(HttpStatus.NOT_FOUND.value()).build();
 		}
 		

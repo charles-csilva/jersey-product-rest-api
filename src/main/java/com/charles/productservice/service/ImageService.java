@@ -2,20 +2,20 @@ package com.charles.productservice.service;
 
 import java.util.List;
 
-import com.charles.productservice.model.Image;
+import com.charles.productservice.dto.ImageDTO;
 
 public interface ImageService {
 
-	Image save(Image image);
+	ImageDTO save(ImageDTO image);
 	
-	Image findById(Long id);
+	ImageDTO findById(Long id);
 
-	Boolean update(Image image);
+	Boolean update(ImageDTO image);
 
-	Boolean delete(Image image);
+	Boolean delete(ImageDTO image);
 
-	public List<Image> findAll();
+	public List<ImageDTO> findAll();
 	
-	public List<Image> findByProduct(Long productId);
+	public List<ImageDTO> findByProduct(Long productId);
 
 }

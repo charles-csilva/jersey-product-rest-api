@@ -2,20 +2,20 @@ package com.charles.productservice.service;
 
 import java.util.List;
 
-import com.charles.productservice.model.Product;
+import com.charles.productservice.dto.ProductDTO;
 
 public interface ProductService {
 
-	Product save(Product product);
+	ProductDTO save(ProductDTO product);
 	
-	Product findById(Long id);
+	ProductDTO findById(Long id);
 
-	Boolean update(Product product);
+	Boolean update(ProductDTO product);
 
-	Boolean delete(Product product);
+	Boolean delete(ProductDTO product);
 
-	public List<Product> findAll();
+	public List<ProductDTO> findAll();
 	
-	public List<Product> findChildrenProducts(Long id);
+	public List<ProductDTO> findChildrenProducts(Long id);
 
 }

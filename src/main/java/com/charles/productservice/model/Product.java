@@ -1,7 +1,6 @@
 package com.charles.productservice.model;
 
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,6 +34,9 @@ public class Product {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
 	private List<Image> images;
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
+	private List<Product> children;
+	
 	public Long getId() {
 		return id;
 	}
@@ -74,6 +76,12 @@ public class Product {
 	public void setImages(List<Image> images) {
 		this.images = images;
 	}
-
 	
+	public List<Product> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<Product> children) {
+		this.children = children;
+	}
 }

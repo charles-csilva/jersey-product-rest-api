@@ -1,12 +1,12 @@
 package com.charles.productservice.service.impl;
 
 import java.util.List;
-
+import java.util.stream.Collectors;
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.charles.productservice.dto.ImageDTO;
+import com.charles.productservice.dto.mapper.ImageMapper;
 import com.charles.productservice.model.Image;
 import com.charles.productservice.repository.ImageRepository;
 import com.charles.productservice.service.ImageService;
@@ -19,38 +19,44 @@ public class ImageServiceImpl implements ImageService{
 
 	@Override
 	@Transactional
-	public Image save(Image image) {
-		return imageRepository.save(image);
+	public ImageDTO save(ImageDTO image) {
+		Image p = imageRepository.save(ImageMapper.toEntity(image));
+		return ImageMapper.toDTO(p);
 	}
 
 	@Override
 	@Transactional
-	public Image findById(Long id) {
-		return imageRepository.findById(id);
+	public ImageDTO findById(Long id) {
+		if (id == null){
+			return null;
+		}
+		return ImageMapper.toDTO(imageRepository.findById(id));
 	}
 
 	@Override
 	@Transactional
-	public Boolean update(Image image) {
-		return imageRepository.update(image);
+	public Boolean update(ImageDTO image) {
+		return imageRepository.update(ImageMapper.toEntity(image));
 	}
 
 	@Override
 	@Transactional
-	public Boolean delete(Image image) {
-		return imageRepository.delete(image);
+	public Boolean delete(ImageDTO image) {
+		return imageRepository.delete(ImageMapper.toEntity(image));
 	}
 
 	@Override
 	@Transactional
-	public List<Image> findAll() {
-		return imageRepository.findAll();
+	public List<ImageDTO> findAll() {
+		return imageRepository.findAll().stream()
+				.map(o -> ImageMapper.toDTO(o)).collect(Collectors.toList());
 	}
 
 	@Override
 	@Transactional
-	public List<Image> findByProduct(Long productId) {
-		return imageRepository.findByProduct(productId);
+	public List<ImageDTO> findByProduct(Long productId) {
+		return imageRepository.findByProduct(productId).stream()
+				.map(o -> ImageMapper.toDTO(o)).collect(Collectors.toList());
 	}
 
 }
