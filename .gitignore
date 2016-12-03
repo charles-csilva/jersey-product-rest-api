@@ -1,0 +1,8 @@
+# building
+/target/
+*.class
+
+# Eclipse
+.classpath
+.project
+.settings
