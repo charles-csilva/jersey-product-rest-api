@@ -6,7 +6,7 @@ public class ImageDTO {
 	
 	private String type;
 	
-	private ProductDTO productFrom;
+	private ProductDTO product;
 	
 	public Long getId() {
 		return id;
@@ -24,11 +24,11 @@ public class ImageDTO {
 		this.type = type;
 	}
 
-	public ProductDTO getProductFrom() {
-		return productFrom;
+	public ProductDTO getProduct() {
+		return product;
 	}
 
-	public void setProductFrom(ProductDTO product) {
-		this.productFrom = product;
+	public void setProduct(ProductDTO product) {
+		this.product = product;
 	}
 }

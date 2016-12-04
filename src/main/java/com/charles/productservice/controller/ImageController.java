@@ -51,11 +51,11 @@ public class ImageController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findById(@PathParam("id") Long id) {
 		
-		ImageDTO p = imageService.findById(id);
+		ImageDTO p = imageService.findByIdAndProductId(id, product.getId());
 		
-        if(p == null || (product != null && !product.equals(p.getProductFrom())))
-			return Response.status(HttpStatus.NOT_FOUND.value()).entity(p).build(); 
-		else return Response.status(HttpStatus.OK.value()).build();
+        if(p == null)
+			return Response.status(HttpStatus.NOT_FOUND.value()).build(); 
+		else return Response.status(HttpStatus.OK.value()).entity(p).build();
 	}
 
 	/*
@@ -66,14 +66,12 @@ public class ImageController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response save(ImageDTO image) {
 		
-		if (product != null)
-			image.setProductFrom(product);
-		
+		image.setProduct(product);
 		ImageDTO i = imageService.save(image);
 		
 		if (i == null)
 			return Response.status(HttpStatus.NOT_FOUND.value()).build();
-		return Response.status(HttpStatus.OK.value()).entity(i).build(); 
+		return Response.status(HttpStatus.CREATED.value()).entity(i).build(); 
 	}
 	
 	/*
@@ -85,17 +83,13 @@ public class ImageController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response update(@PathParam("id") Long id, ImageDTO image) {
 		
-		if (product != null)
-			image.setProductFrom(product);
-		
+		image.setProduct(product);
 		image.setId(id);
 		
-		if (imageService.findById(image.getId()) != null) {
-			if (imageService.update(image)){
-				return Response.status(HttpStatus.OK.value()).build();
-			}
-		}
-		
+		if(imageService.findByIdAndProductId(id, product.getId()) != null
+			&& imageService.update(image))
+			return Response.status(HttpStatus.OK.value()).entity(image).build();
+
 		return Response.status(HttpStatus.NOT_FOUND.value()).build();
 	}
 	

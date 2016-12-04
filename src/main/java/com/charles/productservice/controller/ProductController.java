@@ -94,7 +94,7 @@ public class ProductController {
 		if (o == null)
 			return Response.status(HttpStatus.NOT_FOUND.value()).build();
 		
-		return Response.status(HttpStatus.OK.value()).entity(o).build(); 
+		return Response.status(HttpStatus.CREATED.value()).entity(o).build(); 
 	}
 	
 	/*

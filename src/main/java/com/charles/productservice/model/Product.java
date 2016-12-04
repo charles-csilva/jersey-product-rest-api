@@ -1,9 +1,6 @@
 package com.charles.productservice.model;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,7 +29,7 @@ public class Product {
 	private String description;
 	
 	@ManyToOne(fetch = FetchType.EAGER, optional = true)
-	@JoinColumn(name = "parent")
+	@JoinColumn(name = "parent_product_id")
 	private Product parent;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product"

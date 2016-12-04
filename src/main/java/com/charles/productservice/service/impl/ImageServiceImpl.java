@@ -30,13 +30,8 @@ public class ImageServiceImpl implements ImageService{
 		
 		if (id == null)
 			return null;
-		
-		Image i = imageRepository.findById(id);
-		
-		if(i == null)
-			return null;
-		
-		return ImageMapper.toDTO(i, true);
+
+		return ImageMapper.toDTO(imageRepository.findById(id), true);
 	}
 
 	@Override

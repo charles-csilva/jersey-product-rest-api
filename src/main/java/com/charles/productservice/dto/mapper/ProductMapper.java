@@ -47,7 +47,7 @@ public class ProductMapper {
 		product.setDescription(productDTO.getDescription());
 		
 		if (productDTO.getParentProduct() != null)
-			product.setParent(ProductMapper.toEntity(productDTO.getParentProduct()));
+			productDTO.setParent(ProductMapper.toDTO(product.getParent(), true, true));
 
 		if (productDTO.getImages() != null){
 			product.setImages((List<Image>) productDTO.getImages().stream()

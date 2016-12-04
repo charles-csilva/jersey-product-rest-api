@@ -17,7 +17,7 @@ public class ProductDTO {
 
 	private List<ImageDTO> images;
 	
-	private List<ProductDTO> childrenProduct;
+	private List<ProductDTO> children;
 	
 	public Long getId() {
 		return id;
@@ -59,12 +59,12 @@ public class ProductDTO {
 		this.images = images;
 	}
 
-	public List<ProductDTO> getChildrenProduct() {
-		return childrenProduct;
+	public List<ProductDTO> getChildren() {
+		return children;
 	}
 
 	public void setChildren(List<ProductDTO> children) {
-		this.childrenProduct = children;
+		this.children = children;
 	}
 }
 

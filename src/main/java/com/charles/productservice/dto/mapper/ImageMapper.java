@@ -20,7 +20,7 @@ public class ImageMapper {
 		imageDTO.setType(image.getType());
 		
 		if (image.getProduct() != null && isGetProduct){
-			imageDTO.setProductFrom(ProductMapper.toDTO(image.getProduct(), false, false));
+			imageDTO.setProduct(ProductMapper.toDTO(image.getProduct(), false, false));
 		}
 		
 		return imageDTO;
@@ -31,8 +31,8 @@ public class ImageMapper {
 		image.setId(imageDTO.getId());
 		image.setType(imageDTO.getType());
 		
-		if (imageDTO.getProductFrom() != null){
-			image.setProduct(ProductMapper.toEntity(imageDTO.getProductFrom()));
+		if (imageDTO.getProduct() != null){
+			image.setProduct(ProductMapper.toEntity(imageDTO.getProduct()));
 		}
 		
 		return image;
