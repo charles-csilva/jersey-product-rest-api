@@ -21,45 +21,50 @@ public class ProductServiceImpl implements ProductService{
 	@Transactional
 	public ProductDTO save(ProductDTO product) {
 		Product p = productRepository.save(ProductMapper.toEntity(product));
-		return ProductMapper.toDTO(p);
+		return ProductMapper.toDTO(p, false, false);
 	}
 
 	@Override
 	@Transactional
-	public ProductDTO findById(Long id) {
-		if (id == null){
+	public ProductDTO findById(Long id, boolean isGetImages, boolean isGetChildren) {
+		
+		if (id == null)
 			return null;
-		}
-		return ProductMapper.toDTO(productRepository.findById(id));
+		
+		Product p = productRepository.findById(id);
+
+		if(p == null)
+			return null;
+		
+		return ProductMapper.toDTO(p, isGetImages, isGetChildren);
 	}
 
 	@Override
 	@Transactional
-	public Boolean update(ProductDTO order) {
-		return productRepository.update(ProductMapper.toEntity(order));
+	public Boolean update(ProductDTO product) {
+		return productRepository.update(ProductMapper.toEntity(product));
 	}
 
 	@Override
 	@Transactional
-	public Boolean delete(ProductDTO order) {
-		//		return productRepository.delete(order); //TODO fix
-		return false;
+	public Boolean delete(ProductDTO product) {
+		return productRepository.delete(ProductMapper.toEntity(product));
 	}
 
 	@Override
 	@Transactional
-	public List<ProductDTO> findAll() {
+	public List<ProductDTO> findAll(boolean isGetImages, boolean isGetChildren) {
 		return productRepository.findAll().stream()
-				.map(o -> ProductMapper.toDTO(o, false, true))
+				.map(o -> ProductMapper.toDTO(o, isGetImages, isGetChildren))
 				.collect(Collectors.toList());
 	}
 	
 	@Override
 	@Transactional
-	public List<ProductDTO> findChildrenProducts(Long productId) {
+	public List<ProductDTO> findChildrenProducts(Long productId, boolean isGetImages, boolean isGetChildren) {
 		return productRepository.findChildrenProducts(productId)
 				.stream()
-				.map(o -> ProductMapper.toDTO(o))
+				.map(o -> ProductMapper.toDTO(o, isGetImages, isGetChildren))
 				.collect(Collectors.toList());
 	}
 }

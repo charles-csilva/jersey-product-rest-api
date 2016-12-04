@@ -22,7 +22,7 @@ public class Image {
 	@Column(name = "type")
 	private String type;
 	
-	@ManyToOne(fetch = FetchType.EAGER, optional = true)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "product_id")
 	private Product product;
 	

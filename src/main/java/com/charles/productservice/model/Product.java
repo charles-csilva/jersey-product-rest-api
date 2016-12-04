@@ -12,9 +12,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.charles.productservice.util.ISelfRelationable;
+
 @Entity
 @Table(name="PRODUCTS")
-public class Product {
+public class Product implements ISelfRelationable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -83,5 +85,15 @@ public class Product {
 
 	public void setChildren(List<Product> children) {
 		this.children = children;
+	}
+
+	@Override
+	public Long getRelationKey() {
+		return getId();
+	}
+
+	@Override
+	public ISelfRelationable getParentRelated() {
+		return getParent();
 	}
 }

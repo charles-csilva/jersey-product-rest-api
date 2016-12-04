@@ -20,17 +20,23 @@ public class ImageServiceImpl implements ImageService{
 	@Override
 	@Transactional
 	public ImageDTO save(ImageDTO image) {
-		Image p = imageRepository.save(ImageMapper.toEntity(image));
-		return ImageMapper.toDTO(p);
+		Image i = imageRepository.save(ImageMapper.toEntity(image));
+		return ImageMapper.toDTO(i, true);
 	}
 
 	@Override
 	@Transactional
 	public ImageDTO findById(Long id) {
-		if (id == null){
+		
+		if (id == null)
 			return null;
-		}
-		return ImageMapper.toDTO(imageRepository.findById(id));
+		
+		Image i = imageRepository.findById(id);
+		
+		if(i == null)
+			return null;
+		
+		return ImageMapper.toDTO(i, true);
 	}
 
 	@Override
@@ -49,14 +55,14 @@ public class ImageServiceImpl implements ImageService{
 	@Transactional
 	public List<ImageDTO> findAll() {
 		return imageRepository.findAll().stream()
-				.map(o -> ImageMapper.toDTO(o)).collect(Collectors.toList());
+				.map(o -> ImageMapper.toDTO(o, false)).collect(Collectors.toList());
 	}
 
 	@Override
 	@Transactional
-	public List<ImageDTO> findByProduct(Long productId) {
-		return imageRepository.findByProduct(productId).stream()
-				.map(o -> ImageMapper.toDTO(o)).collect(Collectors.toList());
+	public List<ImageDTO> findByProductId(Long productId) {
+		return imageRepository.findByProductId(productId).stream()
+				.map(o -> ImageMapper.toDTO(o, false)).collect(Collectors.toList());
 	}
 
 }

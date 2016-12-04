@@ -8,14 +8,14 @@ public interface ProductService {
 
 	ProductDTO save(ProductDTO product);
 	
-	ProductDTO findById(Long id);
+	ProductDTO findById(Long id, boolean isGetImages, boolean isGetChildren);
 
 	Boolean update(ProductDTO product);
 
 	Boolean delete(ProductDTO product);
 
-	public List<ProductDTO> findAll();
+	public List<ProductDTO> findAll(boolean isGetImages, boolean isGetChildren);
 	
-	public List<ProductDTO> findChildrenProducts(Long id);
+	public List<ProductDTO> findChildrenProducts(Long id, boolean isGetImages, boolean isGetChildren);
 
 }

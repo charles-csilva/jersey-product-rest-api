@@ -11,6 +11,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.container.ResourceContext;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -31,10 +32,12 @@ public class ProductController {
 	
 	@Path("{productId}/images")
     public ImageController images(@PathParam("productId") long productId, @Context ResourceContext rc) {
-		ProductDTO p = productService.findById(productId);
-		if (p == null){
+		
+		ProductDTO p = productService.findById(productId, false, false);
+
+		if (p == null)
 			throw new NotFoundException();
-		}
+
         return rc.initResource(new ImageController(p));
     }
 	
@@ -43,8 +46,10 @@ public class ProductController {
 	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<ProductDTO> findAll() {
-		return productService.findAll();
+	public List<ProductDTO> findAll(
+			@QueryParam("isGetImages") boolean isGetImages
+			, @QueryParam("isGetChildren") boolean isGetChildren) {
+		return productService.findAll(isGetImages, isGetChildren);
 	}
 	
 	/*
@@ -53,8 +58,10 @@ public class ProductController {
 	@GET
 	@Path("/{id}/children")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<ProductDTO> findAllChildren(@PathParam("id") Long id) {
-		return productService.findChildrenProducts(id);
+	public List<ProductDTO> findAllChildren(@PathParam("id") Long id
+			, @QueryParam("isGetImages") boolean isGetImages
+			, @QueryParam("isGetChildren") boolean isGetChildren) {
+		return productService.findChildrenProducts(id, isGetImages, isGetChildren);
 	}
 	
 	/*
@@ -63,13 +70,15 @@ public class ProductController {
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findById(@PathParam("id") Long id) {
-		ProductDTO o = productService.findById(id);
-        if(o != null) {
-			return Response.status(HttpStatus.OK.value()).entity(o).build(); 
-		} else {
-			return Response.status(HttpStatus.NOT_FOUND.value()).build();
-		}
+	public Response findById(@PathParam("id") Long id
+			, @QueryParam("isGetImages") boolean isGetImages
+			, @QueryParam("isGetChildren") boolean isGetChildren) {
+		
+		ProductDTO o = productService.findById(id, isGetImages, isGetChildren);
+        if(o != null)
+			return Response.status(HttpStatus.OK.value()).entity(o).build();
+        
+		return Response.status(HttpStatus.NOT_FOUND.value()).build();
 	}
 
 	/*
@@ -79,10 +88,12 @@ public class ProductController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response save(ProductDTO product) {
+		
 		ProductDTO o = productService.save(product);
-		if (o == null){
+		
+		if (o == null)
 			return Response.status(HttpStatus.NOT_FOUND.value()).build();
-		}
+		
 		return Response.status(HttpStatus.OK.value()).entity(o).build(); 
 	}
 	
@@ -94,13 +105,16 @@ public class ProductController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response update(@PathParam("id") Long id, ProductDTO product) {
+		
 		product.setId(id);
-		if (productService.findById(product.getId()) != null) {
-			if (productService.update(product)){
-				return Response.status(HttpStatus.OK.value()).build();
-			}
+		
+		if (productService.findById(product.getId(), false, false) != null) {
 			
+			if (productService.update(product))
+				return Response.status(HttpStatus.OK.value()).build();
+			else return Response.status(HttpStatus.BAD_REQUEST.value()).build();
 		}
+		
 		return Response.status(HttpStatus.NOT_FOUND.value()).build();
 	}
 	
@@ -112,13 +126,16 @@ public class ProductController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response delete(@PathParam("id") Long id) {
-		ProductDTO p = productService.findById(id);
+		
+		ProductDTO p = productService.findById(id, false, false);
+		
 		if (p != null) {
-			if (productService.delete(p)){
-				return Response.status(HttpStatus.NO_CONTENT.value()).build();
-			}
 			
+			if (productService.delete(p))
+				return Response.status(HttpStatus.OK.value()).build();
+			else return Response.status(HttpStatus.BAD_REQUEST.value()).build();
 		}
+		
 		return Response.status(HttpStatus.NOT_FOUND.value()).build();
 	}
 }
