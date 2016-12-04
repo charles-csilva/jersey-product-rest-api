@@ -17,5 +17,7 @@ public interface ImageService {
 	public List<ImageDTO> findAll();
 	
 	public List<ImageDTO> findByProductId(Long productId);
+	
+	ImageDTO findByIdAndProductId(Long id, Long productId);
 
 }

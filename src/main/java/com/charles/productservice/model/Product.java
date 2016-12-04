@@ -3,6 +3,8 @@ package com.charles.productservice.model;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -33,7 +35,9 @@ public class Product {
 	@JoinColumn(name = "parent")
 	private Product parent;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product"
+			, cascade= CascadeType.REMOVE)
+
 	private List<Image> images;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
@@ -85,5 +89,30 @@ public class Product {
 
 	public void setChildren(List<Product> children) {
 		this.children = children;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 23;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Product other = (Product) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 }

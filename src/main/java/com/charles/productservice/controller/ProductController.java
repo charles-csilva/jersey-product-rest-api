@@ -110,7 +110,12 @@ public class ProductController {
 		
 		if (productService.findById(product.getId(), false, false) != null) {
 			
-			if (productService.update(product))
+			boolean success = false;
+			try{
+				success = productService.update(product);
+			}catch (Exception e) { }
+			
+			if (success)
 				return Response.status(HttpStatus.OK.value()).build();
 			else return Response.status(HttpStatus.BAD_REQUEST.value()).build();
 		}
@@ -131,7 +136,12 @@ public class ProductController {
 		
 		if (p != null) {
 			
-			if (productService.delete(p))
+			boolean success = false;
+			try{
+				success = productService.delete(p);
+			}catch (Exception e) { }
+			
+			if (success)
 				return Response.status(HttpStatus.OK.value()).build();
 			else return Response.status(HttpStatus.BAD_REQUEST.value()).build();
 		}

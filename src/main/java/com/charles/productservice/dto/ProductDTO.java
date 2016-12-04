@@ -2,6 +2,8 @@ package com.charles.productservice.dto;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class ProductDTO {
 	
 	private Long id;
@@ -10,6 +12,7 @@ public class ProductDTO {
 	
 	private String description;
 	
+	@JsonIgnore
 	private ProductDTO parentProduct;
 
 	private List<ImageDTO> images;

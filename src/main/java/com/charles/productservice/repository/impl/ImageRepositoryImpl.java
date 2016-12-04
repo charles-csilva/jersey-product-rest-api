@@ -46,5 +46,14 @@ public class ImageRepositoryImpl implements ImageRepository{
 			    .add( Restrictions.eq("product.id", productId) )
 			    .list();
 	}
+	
+	@Override
+	public Image findByIdAndProductId(Long id, Long productId) {
+		Image result = (Image) sessionFactory.getCurrentSession().createCriteria(Image.class)
+				.add( Restrictions.eq("id", id))
+			    .add( Restrictions.eq("product.id", productId))
+			    .uniqueResult();
+		return result;
+	}
 
 }

@@ -35,5 +35,7 @@ public interface ImageRepository {
 	 * List all images of a product
 	 */
 	public List<Image> findByProductId(Long productId);
+	
+	Image findByIdAndProductId(Long id, Long productId);
 
 }

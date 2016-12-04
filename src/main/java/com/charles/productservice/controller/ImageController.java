@@ -10,10 +10,8 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
@@ -22,9 +20,6 @@ import com.charles.productservice.dto.ProductDTO;
 import com.charles.productservice.service.ImageService;
  
 public class ImageController {
-	
-	@Context
-	private UriInfo uriInfo;
 	
 	@Autowired
 	private ImageService imageService;
@@ -113,15 +108,12 @@ public class ImageController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response delete(@PathParam("id") Long id) {
 		
-		ImageDTO i = imageService.findById(id);
+		ImageDTO i = imageService.findByIdAndProductId(id, product.getId());
 		
-		if (i == null || (product != null && !product.equals(i.getProductFrom())))
-			return Response.status(HttpStatus.NOT_FOUND.value()).build();
-		
-		if (imageService.delete(i))
-			return Response.status(HttpStatus.NO_CONTENT.value()).build();
-		
-		else return Response.status(HttpStatus.NOT_FOUND.value()).build();
+		if (i != null && imageService.delete(i))
+			return Response.status(HttpStatus.OK.value()).build();
+
+		return Response.status(HttpStatus.NOT_FOUND.value()).build();
 		
 	}
 }

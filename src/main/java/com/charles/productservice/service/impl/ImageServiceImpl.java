@@ -64,5 +64,11 @@ public class ImageServiceImpl implements ImageService{
 		return imageRepository.findByProductId(productId).stream()
 				.map(o -> ImageMapper.toDTO(o, false)).collect(Collectors.toList());
 	}
+	
+	@Override
+	@Transactional
+	public ImageDTO findByIdAndProductId(Long id, Long productId) {
+		return ImageMapper.toDTO(imageRepository.findByIdAndProductId(id, productId), false);
+	}
 
 }
