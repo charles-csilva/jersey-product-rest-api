@@ -10,11 +10,11 @@ public class SelfRelationAnalyzer {
 		ISelfRelationable currObject = o;
 		ISelfRelationable currentParent = o.getParentRelated();
 		Set<Comparable<?>> elementsKeys = new HashSet<Comparable<?>>();
-		elementsKeys.add(o.getRelationKey());
+		//elementsKeys.add(o.getRelationKey());
 		
 		int i = 0;
-		while(i < maxDepth){
-			
+		while(i <= maxDepth){
+			System.out.println("i: " + i);
 			if(currentParent == null)
 				return false;
 			
@@ -23,6 +23,7 @@ public class SelfRelationAnalyzer {
 			
 			currObject = currentParent;
 			currentParent = currObject.getParentRelated();
+			elementsKeys.add(currObject.getRelationKey());
 			++i;
 		}
 		

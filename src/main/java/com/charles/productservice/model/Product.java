@@ -1,5 +1,7 @@
 package com.charles.productservice.model;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +18,7 @@ import com.charles.productservice.util.ISelfRelationable;
 
 @Entity
 @Table(name="PRODUCTS")
-public class Product implements ISelfRelationable {
+public class Product {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -85,15 +87,5 @@ public class Product implements ISelfRelationable {
 
 	public void setChildren(List<Product> children) {
 		this.children = children;
-	}
-
-	@Override
-	public Long getRelationKey() {
-		return getId();
-	}
-
-	@Override
-	public ISelfRelationable getParentRelated() {
-		return getParent();
 	}
 }
