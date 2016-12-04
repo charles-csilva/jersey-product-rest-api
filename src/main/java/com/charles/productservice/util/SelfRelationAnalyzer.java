@@ -5,10 +5,10 @@ import java.util.Set;
 
 public class SelfRelationAnalyzer {
 
-	public static boolean findCircularReference(ISelfRelationable o, int maxDepth){
+	public static boolean findCircularReference(SelfRelationable o, int maxDepth){
 		
-		ISelfRelationable currObject = o;
-		ISelfRelationable currentParent = o.getParentRelated();
+		SelfRelationable currObject = o;
+		SelfRelationable currentParent = o.getParentRelated();
 		Set<Comparable<?>> elementsKeys = new HashSet<Comparable<?>>();
 		//elementsKeys.add(o.getRelationKey());
 		

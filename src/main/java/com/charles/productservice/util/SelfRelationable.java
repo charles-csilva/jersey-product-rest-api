@@ -1,9 +1,9 @@
 package com.charles.productservice.util;
 
-public interface ISelfRelationable {
+public interface SelfRelationable {
 	
 	public Comparable<?> getRelationKey();
 	
-	public ISelfRelationable getParentRelated();
+	public SelfRelationable getParentRelated();
 
 }
