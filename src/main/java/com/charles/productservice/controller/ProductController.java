@@ -82,7 +82,7 @@ public class ProductController {
 	}
 
 	/*
-	 * Save a product, if the product is invalid is returned the status NOT_FOUND
+	 * Save a product
 	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -111,9 +111,9 @@ public class ProductController {
 		if (productService.findById(product.getId(), false, false) != null) {
 			
 			boolean success = false;
-			try{
+			//try{
 				success = productService.update(product);
-			}catch (Exception e) { }
+			//}catch (Exception e) { }
 			
 			if (success)
 				return Response.status(HttpStatus.OK.value()).build();

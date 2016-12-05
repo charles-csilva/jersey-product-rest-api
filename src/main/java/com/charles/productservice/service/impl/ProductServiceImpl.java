@@ -1,8 +1,11 @@
 package com.charles.productservice.service.impl;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.charles.productservice.dto.ProductDTO;
@@ -20,10 +23,11 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	@Transactional
 	public ProductDTO save(ProductDTO product) {
-		Product p = productRepository.save(ProductMapper.toEntity(product));
+		
+		Product p = productRepository.save(ProductMapper.toEntity(product));		
 		return ProductMapper.toDTO(p, false, false);
 	}
-
+	
 	@Override
 	@Transactional
 	public ProductDTO findById(Long id, boolean isGetImages, boolean isGetChildren) {
@@ -42,6 +46,10 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	@Transactional
 	public Boolean update(ProductDTO product) {
+		
+		if(UpdatingImpliesCircularReference(product))
+			return false;
+		
 		return productRepository.update(ProductMapper.toEntity(product));
 	}
 
@@ -66,5 +74,32 @@ public class ProductServiceImpl implements ProductService{
 				.stream()
 				.map(o -> ProductMapper.toDTO(o, isGetImages, isGetChildren))
 				.collect(Collectors.toList());
+	}
+	
+	private boolean UpdatingImpliesCircularReference(ProductDTO product)
+	{
+		ProductDTO currObject = product;
+		ProductDTO currentParent = product.getParent() != null ? findById(product.getParent().getId(), false, false) : null;
+		
+		if(currentParent!= null && currObject.getId().equals(currentParent.getId()))
+			return true;
+		
+		Set<Long> elementsKeys = new HashSet<Long>();
+		int i = 0;
+		while(i <= 3){
+			
+			if(currentParent == null)
+				return false;
+			
+			if(elementsKeys.contains(currObject.getId()))
+				return true;
+			
+			currObject = currentParent;
+			currentParent = currObject.getParent() != null ? findById(product.getParent().getId(), false, false) : null;
+			elementsKeys.add(currObject.getId());
+			++i;
+		}
+		
+		return true;
 	}
 }
