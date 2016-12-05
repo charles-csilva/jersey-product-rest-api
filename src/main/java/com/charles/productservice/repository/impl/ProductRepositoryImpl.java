@@ -19,6 +19,8 @@ public class ProductRepositoryImpl implements ProductRepository{
 	public Product save(Product product) {
 		Long id = (Long) sessionFactory.getCurrentSession().save(product);
 		product.setId(id);
+		product.setName(product.getName());
+		product.setName(product.getDescription());
 		return product;
 	}
 
