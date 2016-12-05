@@ -22,29 +22,33 @@
 
 ### Products ###
 
-GET api/products
+#### GET api/products ####
 Returns an array with all the products.
+
 Query parameters
+
 * isGetChildren (true/false) - return the array of children products.
 * isGetImages (true/false) - return the product images array. 
 
 
-GET api/products/:id
+#### GET api/products/:id ####
 Returns the product specified by id.
+
 Query parameters
+
 * isGetChildren (true/false) - return the array of children products.
 * isGetImages (true/false) - return the product images array. 
 
 
-GET api/products/:id/children
+#### GET api/products/:id/children ####
 Returns the children products of a product specified by id.
 
 
-GET api/products/:id/images
+#### GET api/products/:id/images ####
 Returns the images array of a product specified by id.
 
 
-POST api/products
+#### POST api/products ####
 Create a new product.
 ```
 #!json
@@ -57,7 +61,7 @@ Create a new product.
 ```
 
 
-PUT api/products/:id
+#### PUT api/products/:id ####
 Update a existing product identified by the id.
 ```
 #!json
@@ -70,21 +74,21 @@ Update a existing product identified by the id.
 ```
 
 
-DELETE api/products/:id
+#### DELETE api/products/:id ####
 Delete a existing product identified by the id.
 
 
 ### Images ###
 
-GET api/products/:productId/images
+#### GET api/products/:productId/images ####
 Returns an array with all the images of the product specified by productId.
 
 
-GET api/products/:productId/images/:imageId
+#### GET api/products/:productId/images/:imageId ####
 Returns the image identified by productId, specified by the imageId of the image.
 
 
-POST api/products/:productId/images
+#### POST api/products/:productId/images ####
 Create a new image specified for the product identified by productId.
 ```
 #!json
@@ -94,15 +98,14 @@ Create a new image specified for the product identified by productId.
 ```
 
 
-PUT api/products/:productId/images/:imageId
+#### PUT api/products/:productId/images/:imageId ####
 Update a existing image identified by the productId and imageId.
 ```
 #!json
 {
     "type": "new_type"
-
 }
 ```
 
-DELETE api/products/:productId/images/:imageId 
+#### DELETE api/products/:productId/images/:imageId ####
 Delete a existing image identified by the productId and imageId.
