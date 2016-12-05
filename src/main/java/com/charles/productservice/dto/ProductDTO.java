@@ -12,8 +12,8 @@ public class ProductDTO {
 	
 	private String description;
 	
-	@JsonIgnore
-	private ProductDTO parentProduct;
+	//@JsonIgnore
+	private ProductDTO parent;
 
 	private List<ImageDTO> images;
 	
@@ -43,12 +43,12 @@ public class ProductDTO {
 		this.description = description;
 	}
 
-	public ProductDTO getParentProduct() {
-		return parentProduct;
+	public ProductDTO getParent() {
+		return parent;
 	}
 
 	public void setParent(ProductDTO parent) {
-		this.parentProduct = parent;
+		this.parent = parent;
 	}
 	
 	public List<ImageDTO> getImages() {

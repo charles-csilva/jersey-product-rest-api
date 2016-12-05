@@ -26,7 +26,11 @@ public class ImageMapper {
 		return imageDTO;
 	}
 	
-	public static Image toEntity(ImageDTO imageDTO){
+	public static Image toEntity(ImageDTO imageDTO) {
+		
+		if(imageDTO == null)
+			return null;
+		
 		Image image = new Image();
 		image.setId(imageDTO.getId());
 		image.setType(imageDTO.getType());

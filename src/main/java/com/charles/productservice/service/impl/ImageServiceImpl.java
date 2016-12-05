@@ -31,7 +31,7 @@ public class ImageServiceImpl implements ImageService{
 		if (id == null)
 			return null;
 
-		return ImageMapper.toDTO(imageRepository.findById(id), true);
+		return ImageMapper.toDTO(imageRepository.findById(id), false);
 	}
 
 	@Override
