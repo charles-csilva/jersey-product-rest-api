@@ -25,15 +25,15 @@
 GET api/products
 Returns an array with all the products.
 Query parameters
-- isGetChildren (true/false) - return the array of children products.
-- isGetImages (true/false) - return the product images array. 
+* isGetChildren (true/false) - return the array of children products.
+* isGetImages (true/false) - return the product images array. 
 
 
 GET api/products/:id
 Returns the product specified by id.
 Query parameters
-- isGetChildren (true/false) - return the array of children products.
-- isGetImages (true/false) - return the product images array. 
+* isGetChildren (true/false) - return the array of children products.
+* isGetImages (true/false) - return the product images array. 
 
 
 GET api/products/:id/children
