@@ -30,10 +30,10 @@ public class ImageRepositoryTest extends EntityRepositoryTest{
 	
 	@Test
 	public void testFindById(){
-		Image p = imageRepository.findById(1L);
-		assertThat(p, is(notNullValue()));
-		assertThat(p, hasProperty("type", is(equalTo("type1"))));
-		assertThat(p, hasProperty("product", is(notNullValue())));
+		Image image = imageRepository.findById(1L);
+		assertThat(image, is(notNullValue()));
+		assertThat(image, hasProperty("type", is(equalTo("type1"))));
+		assertThat(image, hasProperty("product", is(notNullValue())));
 	}
 	
 	@Test

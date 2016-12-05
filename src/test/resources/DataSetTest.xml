@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-	<products id="1" name="P1" description="Product1"/>
-	<products id="2" name="P2" description="Product2" parent_product_id="1"/>
-	<products id="3" name="P3" description="Product3" parent_product_id="1"/>
-	<products id="4" name="P4" description="Product4" parent_product_id="2"/>
-	
-	<images id="1" type="type1" product_id="1"/>
-    <images id="2" type="type2" product_id="1"/>
-    <images id="3" type="type3" product_id="2"/>
+	<products id="1" name="P1" description="Product1" />
+	<products id="2" name="P2" description="Product2"
+		parent_product_id="1" />
+	<products id="3" name="P3" description="Product3"
+		parent_product_id="1" />
+	<products id="4" name="P4" description="Product4"
+		parent_product_id="2" />
+
+	<images id="1" type="type1" product_id="1" />
+	<images id="2" type="type2" product_id="1" />
+	<images id="3" type="type3" product_id="2" />
 </dataset>

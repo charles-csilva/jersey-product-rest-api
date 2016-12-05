@@ -17,19 +17,19 @@ import com.charles.productservice.model.Product;
 
 @Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
-public class ProductRepositoryTest extends EntityRepositoryTest{
-	
+public class ProductRepositoryTest extends EntityRepositoryTest {
+
 	@Autowired
 	private ProductRepository productRepository;
-	
+
 	@Test
-	public void testFindAll(){
+	public void testFindAll() {
 		List<Product> products = productRepository.findAll();
 		assertThat(products, hasSize(4));
 	}
-	
+
 	@Test
-	public void testFindById(){
+	public void testFindById() {
 		Product product = productRepository.findById(2L);
 		assertThat(product, is(notNullValue()));
 		assertThat(product, hasProperty("name", equalTo("P2")));
@@ -38,18 +38,18 @@ public class ProductRepositoryTest extends EntityRepositoryTest{
 		assertThat(product.getParent(), hasProperty("name", is(equalTo("P1"))));
 		assertThat(product, hasProperty("children", hasSize(1)));
 	}
-	
-	@Test 
-	public void testSave(){
+
+	@Test
+	public void testSave() {
 		Product product = new Product();
 		product.setName("P5");
 		product.setDescription("Product5");
 		product = productRepository.save(product);
 		assertThat(product, hasProperty("id", is(notNullValue())));
 	}
-	
+
 	@Test
-	public void testUpdate(){
+	public void testUpdate() {
 		Product product1 = new Product();
 		product1.setId(1L);
 		final String newName = "P1_new";
@@ -57,40 +57,40 @@ public class ProductRepositoryTest extends EntityRepositoryTest{
 		final String newDescription = "Product1_new";
 		product1.setDescription(newDescription);
 		productRepository.update(product1);
-		Product product2 = productRepository.findById(1L);	
+		Product product2 = productRepository.findById(1L);
 		assertThat(product2, hasProperty("name", is(equalTo(newName))));
 		assertThat(product2, hasProperty("description", is(equalTo(newDescription))));
 		assertThat(product2, hasProperty("parent", is(nullValue())));
 	}
-	
+
 	@Test
-	public void testDelete(){
+	public void testDelete() {
 		Product product = new Product();
 		product.setId(1L);
 		productRepository.delete(product);
-		Product product2 = productRepository.findById(1L);	
+		Product product2 = productRepository.findById(1L);
 		assertThat(product2, is(nullValue()));
 	}
-	
+
 	@Test
-	public void testDeleteWithImagesReferences(){
+	public void testDeleteWithImagesReferences() {
 		Product product1 = new Product();
 		product1.setId(1L);
 		productRepository.delete(product1);
-		Product product2 = productRepository.findById(1L);	
+		Product product2 = productRepository.findById(1L);
 		assertThat(product2, is(nullValue()));
 	}
-	
+
 	@Test
-	public void testFindChildProducts(){
+	public void testFindChildProducts() {
 		List<Product> product = productRepository.findChildrenProducts(1L);
 		assertThat(product, hasSize(2));
 		assertThat(product.get(0), is(notNullValue()));
 		assertThat(product.get(1), is(notNullValue()));
 	}
-	
+
 	@Test
-	public void testFindChildProductsEmpty(){
+	public void testFindChildProductsEmpty() {
 		List<Product> product = productRepository.findChildrenProducts(4L);
 		assertThat(product, hasSize(0));
 	}
