@@ -1,8 +1,5 @@
-FROM maven:3.6.3-openjdk-11-slim AS build-step
+FROM maven:3.6.3-openjdk-8-slim
 ADD ./ /source
 WORKDIR /source
-RUN [ "mvn", "package" ]
-
-FROM jetty:9.4.35-jre11
-COPY --from=build-step /source/target/product-service-0.0.1-SNAPSHOT.war /var/lib/jetty/webapps/ROOT.war
+ENTRYPOINT [ "mvn", "jetty:run-war" ]
 EXPOSE 8080

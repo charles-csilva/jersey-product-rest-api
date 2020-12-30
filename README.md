@@ -1,7 +1,7 @@
 # Product REST API #
 
 This project uses
-- Java 11
+- Java 8
 - Maven
 - H2 embedded
 - Jersey
@@ -15,12 +15,10 @@ This project uses
 # Execution #
 
 ## Via Docker ##
-TODO
+``` $ docker-compose up ```
 
 ## Via Maven ##
-- mvn compile
-- mvn jetty:run
-- mvn test
+```$ mvn jetty:run```
 
 # Usage #
 
