@@ -1,10 +1,9 @@
-# README #
+# Product REST API #
 
-#### This project uses ####
-- JDK 8
-- Maven 3
+This project uses
+- Java 11
+- Maven
 - H2 embedded
-- JAX-RS
 - Jersey
 - Jackson
 - Spring
@@ -13,99 +12,95 @@
 - Spring Test
 - DBUnit
 
-#### Commands ####
+# Execution #
+
+## Via Docker ##
+TODO
+
+## Via Maven ##
 - mvn compile
 - mvn jetty:run
 - mvn test
 
-## API ##
+# Usage #
 
 ### Products ###
 
-#### GET api/products ####
-Returns an array with all the products.
+``` GET localhost:8080/api/products ```\
+Returns an array containing all products.
 
 Query parameters
 
-* isGetChildren (true/false) - return the array of children products.
-* isGetImages (true/false) - return the product images array. 
+* isGetChildren (true/false) - includes products' children products.
+* isGetImages (true/false) - includes product's images. 
 
 
-#### GET api/products/:id ####
-Returns the product specified by id.
+``` GET localhost:8080/api/products/:id ```\
+Returns the product identified by id.
 
 Query parameters
 
-* isGetChildren (true/false) - return the array of children products.
-* isGetImages (true/false) - return the product images array. 
+* isGetChildren (true/false) - includes products' children products.
+* isGetImages (true/false) - includes product's images. 
 
 
-#### GET api/products/:id/children ####
-Returns the children products of a product specified by id.
+``` GET api/products/:id/children ```\
+Returns the children products of the product identified by id.
 
 
-#### GET api/products/:id/images ####
-Returns the images array of a product specified by id.
+``` GET api/products/:id/images ```\
+Returns the image array of the product identified by id.
 
 
-#### POST api/products ####
-Create a new product.
+``` POST api/products ```\
+Creates a new product.
 ```
-#!json
 {
     "name": "Product 1",
     "description": "Product 1 description",
     "parent": {"id": 1}
-
 }
 ```
-
-
-#### PUT api/products/:id ####
-Update a existing product identified by the id.
+``` PUT api/products/:id ```\
+Updates a existing product identified by the id.
 ```
-#!json
 {
     "name": "Product 1 ++",
     "description": "Product 1 description ++",
     "parent": {"id": 1}
-
 }
 ```
 
 
-#### DELETE api/products/:id ####
-Delete a existing product identified by the id.
+``` DELETE api/products/:id ```\
+Deletes a existing product identified by the id.
 
 
 ### Images ###
 
-#### GET api/products/:productId/images ####
-Returns an array with all the images of the product specified by productId.
+``` GET api/products/:productId/images ```\
+Returns an array of all images of the product identified by productId.
 
 
-#### GET api/products/:productId/images/:imageId ####
-Returns the image identified by productId, specified by the imageId of the image.
+``` GET api/products/:productId/images/:imageId ```\
+Returns the image identified by productId and imageId.
 
 
-#### POST api/products/:productId/images ####
-Create a new image specified for the product identified by productId.
+``` POST api/products/:productId/images ```\
+Creates a new image for the product identified by productId.
 ```
-#!json
 {
     "type": "image_type"
 }
 ```
 
-
-#### PUT api/products/:productId/images/:imageId ####
-Update a existing image identified by the productId and imageId.
+``` PUT api/products/:productId/images/:imageId ```\
+Updates a existing image identified by productId and imageId.
 ```
-#!json
 {
     "type": "new_type"
 }
 ```
 
-#### DELETE api/products/:productId/images/:imageId ####
-Delete a existing image identified by the productId and imageId.
+``` DELETE api/products/:productId/images/:imageId ```\
+Deletes an existing image identified by productId and imageId.
