@@ -3,7 +3,7 @@
 This project uses
 - Java 8
 - Maven
-- H2 embedded
+- H2 Database
 - Jersey
 - Jackson
 - Spring
