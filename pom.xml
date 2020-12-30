@@ -12,7 +12,7 @@
 		<spring.version>4.0.4.RELEASE</spring.version>
 		<logback.version>1.1.2</logback.version>
 		<jersey.version>2.8</jersey.version>
-		<junit.version>4.13.1</junit.version>
+		<junit.version>4.11</junit.version>
 		<mockito.version>1.9.5</mockito.version>
 		<powermock.version>1.5.4</powermock.version>
 		<hibernate.version>4.3.5.Final</hibernate.version>
