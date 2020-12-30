@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
-@ContextConfiguration(locations = { "/TestApplicationContext.xml" })
+@ContextConfiguration(locations = { "/testApplicationContext.xml" })
 public class EntityRepositoryTest {
 
 	@Autowired
