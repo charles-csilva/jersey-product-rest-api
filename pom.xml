@@ -10,7 +10,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<slf4j.version>1.7.7</slf4j.version>
 		<spring.version>4.0.4.RELEASE</spring.version>
-		<logback.version>1.1.2</logback.version>
+		<logback.version>1.2.0</logback.version>
 		<jersey.version>2.8</jersey.version>
 		<junit.version>4.13.1</junit.version>
 		<mockito.version>1.9.5</mockito.version>
